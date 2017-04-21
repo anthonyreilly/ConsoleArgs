@@ -21,7 +21,11 @@ namespace ConsoleArgs
             // Set the arguments to display the description and help text
             app.HelpOption("-?|-h|--help");
 
-            var basicOption = app.Option("-o|--option <optionvalue>",
+            // The first argument is the option template.
+            // It starts with a pipe-delimited list of option flags/names to use
+            // Optionally, It is then followed by a space and a short description of the value to specify.
+            // e.g. here we could also just use "-o|--option"
+            var basicOption = app.Option("-o|--option <optionvalue>", 
                     "Some option value",
                     CommandOptionType.SingleValue);
 
@@ -131,8 +135,7 @@ namespace ConsoleArgs
                     // Here we're checking HasValue() to see if there is a value before displaying the output.
                     // Alternatively, you could just handle nulls from the Value properties
                     if(booleanOption.HasValue())
-                    {
-                        
+                    {                        
                         Console.WriteLine("booleanOption option: {0}", booleanOptionValue.ToString());
                     }
 
@@ -142,8 +145,7 @@ namespace ConsoleArgs
                     }
 
                     if(singleValueOption.HasValue())
-                    {
-                        
+                    {                        
                         Console.WriteLine("singleValueOption option: {0}", singleOptionValue ?? "null");
                     }
 
