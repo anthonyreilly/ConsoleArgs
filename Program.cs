@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.CommandLineUtils;
 
@@ -20,6 +21,12 @@ namespace ConsoleArgs
 
             // Set the arguments to display the description and help text
             app.HelpOption("-?|-h|--help");
+
+            // This is a helper/shortcut method to display version info - it is creating a regular Option, with some defaults.
+            // The default help text is "Show version Information"
+            app.VersionOption("-v|--version", () => {
+                return string.Format("Version {0}", Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
+            });
 
             // The first argument is the option template.
             // It starts with a pipe-delimited list of option flags/names to use
